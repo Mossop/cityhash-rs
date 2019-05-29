@@ -152,7 +152,7 @@ static uint64 HashLen33to64(const char *s, size_t len) {
   return ShiftMix(r * k0 + vs) * k2;
 }
 
-uint64 CityHash64(const char *s, size_t len) {
+uint64 CityHash64_1(const char *s, size_t len) {
   if (len <= 32) {
     if (len <= 16) {
       return HashLen0to16(s, len);
@@ -198,7 +198,7 @@ uint64 CityHash64WithSeed(const char *s, size_t len, uint64 seed) {
 
 uint64 CityHash64WithSeeds(const char *s, size_t len,
                            uint64 seed0, uint64 seed1) {
-  return HashLen16(CityHash64(s, len) - seed0, seed1);
+  return HashLen16(CityHash64_1(s, len) - seed0, seed1);
 }
 
 // A subroutine for CityHash128().  Returns a decent 128-bit hash for strings
@@ -290,7 +290,7 @@ uint128 CityHash128WithSeed(const char *s, size_t len, uint128 seed) {
                  HashLen16(x + w.second, y + v.second));
 }
 
-uint128 CityHash128(const char *s, size_t len) {
+uint128 CityHash128_1(const char *s, size_t len) {
   if (len >= 16) {
     return CityHash128WithSeed(s + 16,
                                len - 16,

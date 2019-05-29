@@ -1,11 +1,20 @@
 [package]
-name = "cityhash1"
+name = "cityhash"
+description = "Rust bindings for CityHash."
+repository = "https://github.com/Mossop/cityhash-rs"
+readme = "README.md"
 version = "0.1.0"
 authors = ["Dave Townsend <dtownsend@oxymoronical.com>"]
+license = "MIT"
 edition = "2018"
+
+[[bin]]
+name = "cityhash"
+path = "src/bin.rs"
 
 [dependencies]
 libc = "0.2"
+clap = { version = "2.33.0", features = ["yaml", "wrap_help"] }
 
 [build-dependencies]
 cc = "1.0"

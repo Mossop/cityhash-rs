@@ -1,11 +1,13 @@
 extern crate cc;
 
-use std::env;
-
 fn main() {
-    env::set_current_dir("cityhash").unwrap();
     cc::Build::new()
-        .cpp(true)
-        .file("city.cc")
-        .compile("cityhash");
+        .file("cityhash_1/city.cc")
+        .include("cityhash_1")
+        .compile("cityhash_1");
+
+    cc::Build::new()
+        .file("cityhash_1_1_1/city.cc")
+        .include("cityhash_1_1_1")
+        .compile("cityhash_1_1_1");
 }

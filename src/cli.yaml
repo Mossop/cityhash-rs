@@ -1,0 +1,42 @@
+name: cityhash
+about: Hashes a string using the CityHash algorithm.
+args:
+    - version:
+        short: v
+        long: version
+        value_name: VERSION
+        help: Selects the version of CityHash to use. The default is to use the newest version.
+        takes_value: true
+        possible_values:
+            - "1"
+            - "1.1.1"
+        default_value: "1.1.1"
+    - bits:
+        short: b
+        long: bits
+        value_name: BITS
+        help: The bit length of CityHash to use.
+        takes_value: true
+        possible_values:
+            - "64"
+            - "128"
+        default_value: "64"
+    - encoding:
+        short: e
+        long: encoding
+        value_name: ENCODING
+        help: The encoding to use to generate the bytes to hash.
+        takes_value: true
+        possible_values:
+            - "utf8"
+            - "utf16"
+            - "utf16_be"
+            - "utf16_le"
+            - "unicode"
+            - "unicode_be"
+            - "unicode_le"
+        default_value: "utf8"
+    - string:
+        help: A string to hash.
+        required: true
+        multiple: true
