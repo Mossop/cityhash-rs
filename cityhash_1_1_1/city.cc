@@ -167,7 +167,7 @@ static uint32 Hash32Len5to12(const char *s, size_t len) {
   return fmix(Mur(c, Mur(b, Mur(a, d))));
 }
 
-uint32 CityHash32(const char *s, size_t len) {
+uint32 CityHash32_1_1_1(const char *s, size_t len) {
   if (len <= 24) {
     return len <= 12 ?
         (len <= 4 ? Hash32Len0to4(s, len) : Hash32Len5to12(s, len)) :
@@ -382,11 +382,11 @@ uint64 CityHash64_1_1_1(const char *s, size_t len) {
                    HashLen16(v.second, w.second) + x);
 }
 
-uint64 CityHash64WithSeed(const char *s, size_t len, uint64 seed) {
-  return CityHash64WithSeeds(s, len, k2, seed);
+uint64 CityHash64WithSeed_1_1_1(const char *s, size_t len, uint64 seed) {
+  return CityHash64WithSeeds_1_1_1(s, len, k2, seed);
 }
 
-uint64 CityHash64WithSeeds(const char *s, size_t len,
+uint64 CityHash64WithSeeds_1_1_1(const char *s, size_t len,
                            uint64 seed0, uint64 seed1) {
   return HashLen16(CityHash64_1_1_1(s, len) - seed0, seed1);
 }
@@ -423,7 +423,7 @@ static uint128 CityMurmur(const char *s, size_t len, uint128 seed) {
   return uint128(a ^ b, HashLen16(b, a));
 }
 
-uint128 CityHash128WithSeed(const char *s, size_t len, uint128 seed) {
+uint128 CityHash128WithSeed_1_1_1(const char *s, size_t len, uint128 seed) {
   if (len < 128) {
     return CityMurmur(s, len, seed);
   }
@@ -488,9 +488,9 @@ uint128 CityHash128WithSeed(const char *s, size_t len, uint128 seed) {
 
 uint128 CityHash128_1_1_1(const char *s, size_t len) {
   return len >= 16 ?
-      CityHash128WithSeed(s + 16, len - 16,
+      CityHash128WithSeed_1_1_1(s + 16, len - 16,
                           uint128(Fetch64(s), Fetch64(s + 8) + k0)) :
-      CityHash128WithSeed(s, len, uint128(k0, k1));
+      CityHash128WithSeed_1_1_1(s, len, uint128(k0, k1));
 }
 
 #ifdef __SSE4_2__

@@ -60,11 +60,11 @@ uint64 CityHash64_1(const char *buf, size_t len);
 
 // Hash function for a byte array.  For convenience, a 64-bit seed is also
 // hashed into the result.
-uint64 CityHash64WithSeed(const char *buf, size_t len, uint64 seed);
+uint64 CityHash64WithSeed_1(const char *buf, size_t len, uint64 seed);
 
 // Hash function for a byte array.  For convenience, two seeds are also
 // hashed into the result.
-uint64 CityHash64WithSeeds(const char *buf, size_t len,
+uint64 CityHash64WithSeeds_1(const char *buf, size_t len,
                            uint64 seed0, uint64 seed1);
 
 // Hash function for a byte array.
@@ -72,7 +72,7 @@ uint128 CityHash128_1(const char *s, size_t len);
 
 // Hash function for a byte array.  For convenience, a 128-bit seed is also
 // hashed into the result.
-uint128 CityHash128WithSeed(const char *s, size_t len, uint128 seed);
+uint128 CityHash128WithSeed_1(const char *s, size_t len, uint128 seed);
 
 // Hash 128 input bits down to 64 bits of output.
 // This is intended to be a reasonably good hash function.

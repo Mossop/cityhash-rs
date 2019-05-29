@@ -1,5 +1,4 @@
-//! This module provides [CityHash version 1](https://github.com/google/cityhash/tree/6efae233528bbec2f057d2d1aa78f10d13fa73ea)
-//! which returns different results than more modern versions.
+//! This module provides Rust bindings for [CityHash version 1](https://github.com/google/cityhash/tree/6efae233528bbec2f057d2d1aa78f10d13fa73ea)
 extern crate libc;
 use libc::{size_t, uint64_t};
 
@@ -28,11 +27,24 @@ extern "C" {
 }
 
 /// Returns a 64-bit CityHash of the given slice of bytes.
+/// ```
+/// # fn main() {
+/// use cityhash::cityhash_1::city_hash_64;
+///
+/// assert_eq!(city_hash_64(b"sentences"), 0x3C85_4A92_5E6E_4A9E);
+/// # }
 pub fn city_hash_64(buffer: &[u8]) -> u64 {
     unsafe { CityHash64(buffer.as_ptr(), buffer.len() as size_t) }
 }
 
 /// Returns a 128-bit CityHash of the given slice of bytes.
+///
+/// ```
+/// # fn main() {
+/// use cityhash::cityhash_1::city_hash_128;
+///
+/// assert_eq!(city_hash_128(b"sentences"), 0xB439_3FA9_A2F4_E56C_3245_7785_C254_03D6);
+/// # }
 pub fn city_hash_128(buffer: &[u8]) -> u128 {
     unsafe { CityHash128(buffer.as_ptr(), buffer.len() as size_t).into() }
 }

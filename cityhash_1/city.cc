@@ -192,11 +192,11 @@ uint64 CityHash64_1(const char *s, size_t len) {
                    HashLen16(v.second, w.second) + x);
 }
 
-uint64 CityHash64WithSeed(const char *s, size_t len, uint64 seed) {
-  return CityHash64WithSeeds(s, len, k2, seed);
+uint64 CityHash64WithSeed_1(const char *s, size_t len, uint64 seed) {
+  return CityHash64WithSeeds_1(s, len, k2, seed);
 }
 
-uint64 CityHash64WithSeeds(const char *s, size_t len,
+uint64 CityHash64WithSeeds_1(const char *s, size_t len,
                            uint64 seed0, uint64 seed1) {
   return HashLen16(CityHash64_1(s, len) - seed0, seed1);
 }
@@ -232,7 +232,7 @@ static uint128 CityMurmur(const char *s, size_t len, uint128 seed) {
   return uint128(a ^ b, HashLen16(b, a));
 }
 
-uint128 CityHash128WithSeed(const char *s, size_t len, uint128 seed) {
+uint128 CityHash128WithSeed_1(const char *s, size_t len, uint128 seed) {
   if (len < 128) {
     return CityMurmur(s, len, seed);
   }
@@ -292,16 +292,16 @@ uint128 CityHash128WithSeed(const char *s, size_t len, uint128 seed) {
 
 uint128 CityHash128_1(const char *s, size_t len) {
   if (len >= 16) {
-    return CityHash128WithSeed(s + 16,
+    return CityHash128WithSeed_1(s + 16,
                                len - 16,
                                uint128(UNALIGNED_LOAD64(s) ^ k3,
                                        UNALIGNED_LOAD64(s + 8)));
   } else if (len >= 8) {
-    return CityHash128WithSeed(NULL,
+    return CityHash128WithSeed_1(NULL,
                                0,
                                uint128(UNALIGNED_LOAD64(s) ^ (len * k0),
                                        UNALIGNED_LOAD64(s + len - 8) ^ k1));
   } else {
-    return CityHash128WithSeed(s, len, uint128(k0, k1));
+    return CityHash128WithSeed_1(s, len, uint128(k0, k1));
   }
 }
