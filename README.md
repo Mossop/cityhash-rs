@@ -1,5 +1,9 @@
 Provides rust bindings for the [CityHash algorithm](https://github.com/google/cityhash).
 
+[![Build Status](https://travis-ci.org/Mossop/cityhash-rs.svg?branch=master)](https://travis-ci.org/Mossop/cityhash-rs)
+[![Crates.io](https://img.shields.io/crates/v/cityhash.svg)](https://crates.io/crates/cityhash)
+[![Released API docs](https://docs.rs/cityhash/badge.svg)](https://docs.rs/cityhash)
+
 This crate contains multiple versions of the CityHash algorithm since the
 hash returned varies depending on the version used. Each version is in a
 versioned sub-module with `.` characters replaced by `_`.
