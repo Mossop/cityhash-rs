@@ -19,10 +19,10 @@ impl From<uint128> for u128 {
 
 #[link(name = "cityhash_1")]
 extern "C" {
-    #[link_name = "\u{1}__Z12CityHash64_1PKcm"]
+    #[link_name = "CityHash64_1"]
     fn CityHash64(buffer: *const u8, length: size_t) -> uint64_t;
 
-    #[link_name = "\u{1}__Z13CityHash128_1PKcm"]
+    #[link_name = "CityHash128_1"]
     fn CityHash128(buffer: *const u8, length: size_t) -> uint128;
 }
 

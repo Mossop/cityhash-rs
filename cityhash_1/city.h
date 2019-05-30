@@ -55,6 +55,7 @@ typedef std::pair<uint64, uint64> uint128;
 inline uint64 Uint128Low64(const uint128& x) { return x.first; }
 inline uint64 Uint128High64(const uint128& x) { return x.second; }
 
+extern "C" {
 // Hash function for a byte array.
 uint64 CityHash64_1(const char *buf, size_t len);
 
@@ -73,6 +74,7 @@ uint128 CityHash128_1(const char *s, size_t len);
 // Hash function for a byte array.  For convenience, a 128-bit seed is also
 // hashed into the result.
 uint128 CityHash128WithSeed_1(const char *s, size_t len, uint128 seed);
+}
 
 // Hash 128 input bits down to 64 bits of output.
 // This is intended to be a reasonably good hash function.
