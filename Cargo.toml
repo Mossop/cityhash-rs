@@ -16,7 +16,6 @@ name = "cityhash"
 path = "src/bin.rs"
 
 [dependencies]
-libc = "0.2"
 clap = { version = "2.33.0", features = ["yaml", "wrap_help"] }
 
 [build-dependencies]
