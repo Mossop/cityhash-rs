@@ -1,29 +1,21 @@
 //! This module provides Rust bindings for [CityHash version 1](https://github.com/google/cityhash/tree/6efae233528bbec2f057d2d1aa78f10d13fa73ea)
-extern crate libc;
-use libc::{size_t, uint64_t};
 
-#[repr(C)]
-struct uint128 {
-    pub first: uint64_t,
-    pub second: uint64_t,
-}
+mod ffi {
+    #![allow(dead_code)]
+    #![allow(non_upper_case_globals)]
+    #![allow(non_camel_case_types)]
+    #![allow(non_snake_case)]
 
-impl From<uint128> for u128 {
-    fn from(pair: uint128) -> u128 {
-        let first: u128 = pair.first.into();
-        let second: u128 = pair.second.into();
+    include!(concat!(env!("OUT_DIR"), "/cityhash_1.rs"));
 
-        (second << 64) + first
+    impl From<uint128> for u128 {
+        fn from(pair: uint128) -> u128 {
+            let first: u128 = pair.first.into();
+            let second: u128 = pair.second.into();
+
+            (second << 64) + first
+        }
     }
-}
-
-#[link(name = "cityhash_1")]
-extern "C" {
-    #[link_name = "CityHash64_1"]
-    fn CityHash64(buffer: *const u8, length: size_t) -> uint64_t;
-
-    #[link_name = "CityHash128_1"]
-    fn CityHash128(buffer: *const u8, length: size_t) -> uint128;
 }
 
 /// Returns a 64-bit CityHash of the given slice of bytes.
@@ -34,7 +26,7 @@ extern "C" {
 /// assert_eq!(city_hash_64(b"sentences"), 0x3C85_4A92_5E6E_4A9E);
 /// # }
 pub fn city_hash_64(buffer: &[u8]) -> u64 {
-    unsafe { CityHash64(buffer.as_ptr(), buffer.len() as size_t) }
+    unsafe { ffi::CityHash64_1(buffer.as_ptr() as *const _, buffer.len() as usize) }
 }
 
 /// Returns a 128-bit CityHash of the given slice of bytes.
@@ -46,7 +38,7 @@ pub fn city_hash_64(buffer: &[u8]) -> u64 {
 /// assert_eq!(city_hash_128(b"sentences"), 0xB439_3FA9_A2F4_E56C_3245_7785_C254_03D6);
 /// # }
 pub fn city_hash_128(buffer: &[u8]) -> u128 {
-    unsafe { CityHash128(buffer.as_ptr(), buffer.len() as size_t).into() }
+    unsafe { ffi::CityHash128_1(buffer.as_ptr() as *const _, buffer.len() as usize).into() }
 }
 
 #[cfg(test)]

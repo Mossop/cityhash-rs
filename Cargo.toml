@@ -21,3 +21,4 @@ clap = { version = "2.33.0", features = ["yaml", "wrap_help"] }
 
 [build-dependencies]
 cc = "1.0"
+bindgen = "0.49.2"
